@@ -1,8 +1,11 @@
 package adpro.b10.epicarcade_auth.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
+
 import org.springframework.web.servlet.ModelAndView;
+
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
@@ -15,3 +18,4 @@ public class AuthController {
         return modelAndView;
     }
 }
+
