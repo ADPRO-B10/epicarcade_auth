@@ -10,6 +10,7 @@ ENV JDBC_DATABASE_URL ${JDBC_DATABASE_URL}
 ENV JDBC_DATABASE_USERNAME ${JDBC_DATABASE_USERNAME}
 
 WORKDIR /app
-COPY ./build/libs/<app_name>-<app_version>.jar /app
+RUN ls -al
+COPY ./epicarcade_auth-0.0.1-SNAPSHOT.jar /app
 EXPOSE 8080
 CMD ["java","-jar","<app_name>-<app_version>.jar"]
