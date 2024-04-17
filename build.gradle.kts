@@ -54,16 +54,9 @@ tasks.withType<Test>().configureEach {
 }
 
 tasks.test {
-<<<<<<< HEAD
-    useJUnitPlatform()
-    filter {
-        excludeTestsMatching("*FunctionalTest")
-    }
-=======
 	filter {
 		excludeTestsMatching("*FunctionalTest")
 	}
->>>>>>> 3a2d61963668011fb0d2578ea0905c4dd0e24770
 
 	finalizedBy(tasks.jacocoTestReport)
 }
