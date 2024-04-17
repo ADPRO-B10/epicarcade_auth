@@ -1,4 +1,4 @@
-FROM gradle:jdk21-alpine
+FROM gradle:jdk17-alpine
 ARG PRODUCTION
 ARG JDBC_DATABASE_PASSWORD
 ARG JDBC_DATABASE_URL
@@ -10,7 +10,6 @@ ENV JDBC_DATABASE_URL ${JDBC_DATABASE_URL}
 ENV JDBC_DATABASE_USERNAME ${JDBC_DATABASE_USERNAME}
 
 WORKDIR /app
-RUN ls -al
-COPY ./hoomgroom-authentication-0.0.1-SNAPSHOT.jar /app
+COPY ./build/libs/<app_name>-<app_version>.jar /app
 EXPOSE 8080
-CMD ["java","-jar","hoomgroom-authentication-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-jar","<app_name>-<app_version>.jar"]
