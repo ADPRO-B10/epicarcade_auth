@@ -5,7 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.4"
 }
 
-group = "adpro.b10"
+group = "id.ac.ui.cs.advprog"
 version = "0.0.1-SNAPSHOT"
 
 java {
@@ -31,42 +31,41 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
-tasks.register<Test>("unitTest"){
-    description = "Runs unit tests"
-    group = "verification"
+tasks.register<Test>("unitTest") {
+	description = "Runs unit tests."
+	group = "verification"
 
-    filter {
-        excludeTestsMatching("*FunctionalTest")
-    }
+	filter {
+		excludeTestsMatching("*FunctionalTest")
+	}
 }
 
 tasks.register<Test>("functionalTest") {
-    description = "Runs functional tests."
-    group = "verification"
+	description = "Runs functional tests."
+	group = "verification"
 
-    filter {
-        includeTestsMatching("*FunctionalTest")
-    }
+	filter {
+		includeTestsMatching("*FunctionalTest")
+	}
 }
 
 tasks.withType<Test>().configureEach {
-    useJUnitPlatform()
+	useJUnitPlatform()
 }
 
 tasks.test {
-    filter {
-        excludeTestsMatching("*FunctionalTest")
-    }
+	filter {
+		excludeTestsMatching("*FunctionalTest")
+	}
 
-    finalizedBy(tasks.jacocoTestReport)
+	finalizedBy(tasks.jacocoTestReport)
 }
 
 tasks.jacocoTestReport {
-    dependsOn(tasks.test)
-
-    reports {
-        xml.required.set(true)
-        csv.required.set(true)
-        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
-    }
+	dependsOn(tasks.test)
+	reports {
+		xml.required.set(true)
+		csv.required.set(true)
+		html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+	}
 }
