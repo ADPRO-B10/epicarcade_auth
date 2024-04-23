@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -13,25 +16,18 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
     private Integer id;
 
-    @Column(nullable = false)
-    @Getter
-    @Setter
     private String username;
 
-    @Column(unique = true, length = 255, nullable = false)
-    @Getter
-    @Setter
     private String email;
 
-    @Column(nullable = false)
-    @Setter
     private String password;
-
-    @Column(nullable = false)
-    @Getter
-    @Setter
-    private String role;
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private List<Role> roles = new ArrayList<>();
 }
