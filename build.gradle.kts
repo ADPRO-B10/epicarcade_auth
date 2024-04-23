@@ -30,7 +30,7 @@ val junitJupiterVersion = "5.9.1"
 dependencies {
 	//Authentication
 	implementation("jakarta.persistence:jakarta.persistence-api:3.0.0") // Jakarta Persistence API
-	implementation("org.springframework.boot:spring-boot-starter-security") // Spring Security starter
+	implementation("org.springframework.boot:spring-boot-starter-security") // Spring Security starter (dummy login)
 
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-web")

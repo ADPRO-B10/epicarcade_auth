@@ -1,4 +1,4 @@
-package com.knf.dev.models;
+package adpro.b10.epicarcade_auth.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
