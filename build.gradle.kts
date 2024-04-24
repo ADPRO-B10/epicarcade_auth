@@ -30,7 +30,6 @@ val hibernateVersion = "5.6.4.Final"
 
 dependencies {
 	//Authentication
-	implementation("jakarta.persistence:jakarta.persistence-api:3.0.0") // Jakarta Persistence API
 	implementation("org.springframework.boot:spring-boot-starter-security") // Spring Security starter (dummy login)
 	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
 	runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.5")

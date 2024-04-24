@@ -1,9 +1,9 @@
 package adpro.b10.epicarcade_auth.model;
 
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
