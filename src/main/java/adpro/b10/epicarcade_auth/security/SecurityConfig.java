@@ -35,26 +35,30 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public UserDetailsService users() {
-        UserDetails admin = User.builder()
-            .username("admin")
-            .password("password")
-            .roles(UserRole.ADMIN.getValue())
-            .build();
-        UserDetails buyer = User.builder()
-            .username("buyer")
-            .password("password")
-            .roles(UserRole.BUYER.getValue())
-            .build();
-        UserDetails seller = User.builder()
-                .username("seller")
-                .password("password")
-                .roles(UserRole.SELLER.getValue())
-                .build();
+/*
+PREMADE ACCOUNTS FOR TESTING, if activated it overrides the custom user service
+ */
 
-        return new InMemoryUserDetailsManager(admin, buyer, seller);
-    }
+//    @Bean
+//    public UserDetailsService users() {
+//        UserDetails admin = User.builder()
+//            .username("admin")
+//            .password("password")
+//            .roles(UserRole.ADMIN.getValue())
+//            .build();
+//        UserDetails buyer = User.builder()
+//            .username("buyer")
+//            .password("password")
+//            .roles(UserRole.BUYER.getValue())
+//            .build();
+//        UserDetails seller = User.builder()
+//                .username("seller")
+//                .password("password")
+//                .roles(UserRole.SELLER.getValue())
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(admin, buyer, seller);
+//    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
