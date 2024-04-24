@@ -26,11 +26,17 @@ val seleniumJavaVersion = "4.14.1"
 val seleniumJupiterVersion = "5.0.1"
 val webdrivermanagerVersion = "5.6.3"
 val junitJupiterVersion = "5.9.1"
+val hibernateVersion = "5.6.4.Final"
 
 dependencies {
 	//Authentication
 	implementation("jakarta.persistence:jakarta.persistence-api:3.0.0") // Jakarta Persistence API
 	implementation("org.springframework.boot:spring-boot-starter-security") // Spring Security starter (dummy login)
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+	runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.5")
+	runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.11.5") // or jjwt-gson if Gson is preferred
+	runtimeOnly ("org.postgresql:postgresql")
+	testImplementation ("com.h2database:h2:2.1.214")
 
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-web")
