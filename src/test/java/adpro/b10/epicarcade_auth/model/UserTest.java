@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
-    User BUYER1 = new User();
-    User SELLER1 = new User();
-    User ADMIN1 = new User();
-    private ArrayList<User> users;
+    UserEntity BUYER1 = new UserEntity();
+    UserEntity SELLER1 = new UserEntity();
+    UserEntity ADMIN1 = new UserEntity();
+    private ArrayList<UserEntity> userEntities;
 
     @BeforeEach
     void setUp() {
