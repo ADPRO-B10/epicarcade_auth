@@ -29,11 +29,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf().disable()
-            .exceptionHandling(authEntryPoint)
+            .exceptionHandling()
+            .authenticationEntryPoint(authEntryPoint)
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .authorizeRequests()
+            .and()
+            .authorizeHttpRequests()
             .requestMatchers("/api/auth/**").permitAll()
             .anyRequest().authenticated()
             .and()
