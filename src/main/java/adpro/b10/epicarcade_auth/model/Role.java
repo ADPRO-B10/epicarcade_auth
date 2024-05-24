@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
@@ -21,9 +22,4 @@ public class Role {
     private int id;
 
     private String name;
-
-    public Role(int i, String value) {
-        this.id = i;
-        this.name = value;
-    }
 }
