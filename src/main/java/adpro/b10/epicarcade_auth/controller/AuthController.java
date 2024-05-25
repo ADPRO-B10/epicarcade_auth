@@ -72,17 +72,12 @@ public class AuthController {
 
         //Check registered role
         String requestedRole = registerDto.getRole();
-        Role roles = null;
-
-        if (requestedRole.equals("ADMIN") || requestedRole.equals("1")) {
-            roles = roleRepository.findByName("ADMIN").get();
-        } if (requestedRole.equals("BUYER") || requestedRole.equals("2")) {
-            roles = roleRepository.findByName("BUYER").get();
-        } if (requestedRole.equals("SELLER") || requestedRole.equals("3")) {
-            roles = roleRepository.findByName("SELLER").get();
-        } else {
-            roles = roleRepository.findByName("USER").get();
-        }
+        Role roles = switch (requestedRole) {
+            case "ADMIN", "1" -> roleRepository.findByName("ADMIN").get();
+            case "BUYER", "2" -> roleRepository.findByName("BUYER").get();
+            case "SELLER", "3" -> roleRepository.findByName("SELLER").get();
+            default -> roleRepository.findByName("USER").get();
+        };
 
         user.setRoles(Collections.singletonList(roles));
         userRepository.save(user);
