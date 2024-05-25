@@ -45,12 +45,23 @@ public class AuthController {
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginDto.getUsername(), loginDto.getPassword()
+                        loginDto.getEmail(), loginDto.getPassword()
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         String token =jwtGenerator.generateToken(authentication);
-        return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
+
+        UserEntity loggedInUser = userRepository.findByEmail(loginDto.getEmail()).get();
+
+        return new ResponseEntity<>(new AuthResponseDTO(
+                loggedInUser.getId(),
+                loggedInUser.getUsername(),
+                loggedInUser.getEmail(),
+                loggedInUser.getRoles().get(0).getName(),
+                loggedInUser.getProfilePictureUrl(),
+                token
+        ), HttpStatus.OK);
     }
 
     @PostMapping("register")
@@ -60,14 +71,31 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Username is already taken");
         }
 
+        if (userRepository.existsByEmail(registerDto.getUsername())) {
+            return ResponseEntity.badRequest().body("Username is already taken");
+        }
+
         //If it doesn't exist
         UserEntity user = new UserEntity();
         user.setUsername(registerDto.getUsername());
+        user.setEmail(registerDto.getEmail());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+        if (registerDto.getProfilePictureUrl() != null){
+            user.setProfilePictureUrl(registerDto.getProfilePictureUrl());
+        } else {
+            user.setProfilePictureUrl("https://ui-avatars.com/api/?name=" + user.getUsername() + "&background=random");
+        }
 
-        Role roles = roleRepository.findByName("USER").get();
+        //Check registered role
+        String requestedRole = registerDto.getRole();
+        Role roles = switch (requestedRole) {
+            case "ADMIN", "1" -> roleRepository.findByName("ADMIN").get();
+            case "BUYER", "2" -> roleRepository.findByName("BUYER").get();
+            case "SELLER", "3" -> roleRepository.findByName("SELLER").get();
+            default -> roleRepository.findByName("USER").get();
+        };
+
         user.setRoles(Collections.singletonList(roles));
-
         userRepository.save(user);
 
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);

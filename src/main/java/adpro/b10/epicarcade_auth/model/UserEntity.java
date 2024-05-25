@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.validator.constraints.URL;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -18,7 +20,13 @@ public class UserEntity {
 
     private String username;
 
+    private String email;
+
     private String password;
+
+    @URL
+    private String profilePictureUrl;
+
     @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_roles",

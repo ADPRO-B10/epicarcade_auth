@@ -45,6 +45,9 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+	implementation("org.hibernate.validator:hibernate-validator:6.2.0.Final")
+	implementation("javax.validation:validation-api:2.0.1.Final")
+	implementation("org.glassfish:javax.el:3.0.0")
 
 	testImplementation("org.seleniumhq.selenium:selenium-java:$seleniumJavaVersion")
 	testImplementation("io.github.bonigarcia:selenium-jupiter:$seleniumJupiterVersion")
