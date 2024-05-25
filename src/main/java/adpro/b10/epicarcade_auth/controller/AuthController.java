@@ -49,8 +49,19 @@ public class AuthController {
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         String token =jwtGenerator.generateToken(authentication);
-        return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
+
+        UserEntity loggedInUser = userRepository.findByEmail(loginDto.getEmail()).get();
+
+        return new ResponseEntity<>(new AuthResponseDTO(
+                loggedInUser.getId(),
+                loggedInUser.getUsername(),
+                loggedInUser.getEmail(),
+                loggedInUser.getRoles().get(0).getName(),
+                loggedInUser.getProfilePictureUrl(),
+                token
+        ), HttpStatus.OK);
     }
 
     @PostMapping("register")
@@ -69,6 +80,11 @@ public class AuthController {
         user.setUsername(registerDto.getUsername());
         user.setEmail(registerDto.getEmail());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+        if (registerDto.getProfilePictureUrl() != null){
+            user.setProfilePictureUrl(registerDto.getProfilePictureUrl());
+        } else {
+            user.setProfilePictureUrl("https://ui-avatars.com/api/?name=" + user.getUsername() + "&background=random");
+        }
 
         //Check registered role
         String requestedRole = registerDto.getRole();

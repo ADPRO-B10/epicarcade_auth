@@ -10,12 +10,73 @@
 - [ ] deploy to gcp
 - [x] test endpoints with postman
 
-### LOCALHOST POSTMAN TESTS
-#### Login (SUCCESS)
-![image](https://github.com/ADPRO-B10/epicarcade_auth/assets/112263712/f8679c9e-cfda-48e1-b0ac-891fbcd64168)
+### Request Body
+`POST /auth/register/`
+#### BUYER
+```json
+{
+"username": "usernamefuad",
+"email": "fuadracing@gmail.com",
+"password": "fuadpassword",
+"role": "2"
+}
+```
+#### SELLER
+```json
+{
+"username": "usernamerusdi",
+"email": "rusdiracing@gmail.com",
+"password": "rusdipassword",
+"role": "3"
+}
+```
 
-#### Register (Username taken)
-![image](https://github.com/ADPRO-B10/epicarcade_auth/assets/112263712/55f4a88e-10bb-4527-a470-9d6cac526f2e)
+`POST /auth/login/`
+#### BUYER
+```json
+{
+  "email": "fuadracing@gmail.com",
+  "password": "fuadpassword"
+}
+```
+#### SELLER
+```json
+{
+  "email": "rusdiracing@gmail.com",
+  "password": "rusdipassword"
+}
+```
+
+### Response Body
+`POST /auth/register/`
+```json
+"User registered successfully"
+```
+
+`POST /auth/login/`
+```json
+{
+    "userID": 2,
+    "username": "usernamefuad",
+    "email": "fuadracing@gmail.com",
+    "role": "BUYER",
+    "profilePictureUrl": null,
+    "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmdWFkcmFjaW5nQGdtYWlsLmNvbSIsImlhdCI6MTcxNjYzODAxNCwiZXhwIjoxNzE2NjM4MDg0fQ.rMGRvZm1UYHbo7bzsUJUDBzYK8wEVwyCYnTDp94pD4kJn3-_Dr9xUv3ZWTeb7i1-5cqOXuxtCSezv4XAhniJbQ",
+    "tokenType": "Bearer "
+}
+```
+```json
+{
+    "userID": 1,
+    "username": "usernamerusdi",
+    "email": "rusdiracing@gmail.com",
+    "role": "SELLER",
+    "profilePictureUrl": null,
+    "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJydXNkaXJhY2luZ0BnbWFpbC5jb20iLCJpYXQiOjE3MTY2MzgwMDYsImV4cCI6MTcxNjYzODA3Nn0.QnRhDJJgh914qUc7Ffk_AnogtA292EMyDo12j0o4YdRuySTfFLc4cijJPDtuPJ_qYI8H48saE3MsMduQbaSAKw",
+    "tokenType": "Bearer "
+}
+```
+
 
 ---
 
