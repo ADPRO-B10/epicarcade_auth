@@ -17,9 +17,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -65,14 +66,17 @@ public class AuthController {
     }
 
     @PostMapping("register")
-    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
-        //If it exists
+    public ResponseEntity<Map<String, String>> register(@RequestBody RegisterDto registerDto) {
+        Map<String, String> response = new HashMap<>();
+
         if (userRepository.existsByUsername(registerDto.getUsername())) {
-            return ResponseEntity.badRequest().body("Username is already taken");
+            response.put("message", "Username is already taken");
+            return ResponseEntity.badRequest().body(response);
         }
 
         if (userRepository.existsByEmail(registerDto.getUsername())) {
-            return ResponseEntity.badRequest().body("Username is already taken");
+            response.put("message", "Email is already taken");
+            return ResponseEntity.badRequest().body(response);
         }
 
         //If it doesn't exist
@@ -98,7 +102,8 @@ public class AuthController {
         user.setRoles(Collections.singletonList(roles));
         userRepository.save(user);
 
-        return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+        response.put("message", "User registered successfully");
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
 
