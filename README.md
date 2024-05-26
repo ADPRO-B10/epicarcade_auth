@@ -7,7 +7,7 @@
 ### TODO:
 - [x] fix connection to postgreSQL (user password error)
 - [ ] make and run more tests
-- [ ] deploy to gcp
+- [x] deploy to gcp
 - [x] test endpoints with postman
 
 ### Request Body
